@@ -8,7 +8,6 @@ class CashbackHackServiceTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = "/Bonus.csv", numLinesToSkip = 1)
-
     void shouldReturnResult (int amount, int expected) {
         CashbackHackService service = new CashbackHackService();
         int actual = service.remain(amount);
