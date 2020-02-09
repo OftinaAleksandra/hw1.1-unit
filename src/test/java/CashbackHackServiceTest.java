@@ -1,33 +1,24 @@
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class CashbackHackServiceTest {
 
-    @Test
-    void shouldReturn100IfAmountIs900() {
-        CashbackHackService service = new CashbackHackService();
-        int amount = 900;
-        int actual = service.remain(amount);
-        int expected = 100;
-        assertEquals(expected, actual);
-    }
+    @ParameterizedTest
+    @CsvFileSource(resources = "/Bonus.csv", numLinesToSkip = 1)
 
-   @Test
-    void shouldReturnZeroIfAmountIs1000() {
+    void shouldReturnResult (int amount, int expected) {
         CashbackHackService service = new CashbackHackService();
-        int amount = 1000;
         int actual = service.remain(amount);
-        int expected = 0;
         assertEquals(expected, actual);
     }
 
     @Test
-    void shouldReturn800IfAmountIs1200() {
+    void shouldReturnSIfAmountIs0() {
         CashbackHackService service = new CashbackHackService();
-        int amount = 1200;
-        int actual = service.remain(amount);
-        int expected = 800;
-        assertEquals(expected, actual);
+        int amount = 0;
+        assertThrows (IllegalArgumentException.class, () -> service.remain(amount));
     }
 }
